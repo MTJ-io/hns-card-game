@@ -1,3 +1,28 @@
 .main {
   position: relative;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+}
+
+.play {
+  background-color: var(--color-green);
+
+  .content {
+    position: sticky;
+
+    top: 0;
+  }
+}
+
+.cards {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--size-unit-4);
+
+  background-color: var(--color-beige);
+
+  padding: var(--size-unit-8);
 }
