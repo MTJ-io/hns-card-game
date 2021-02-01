@@ -1,0 +1,96 @@
+@mixin small-mobile() {
+  @media screen and (min-width: $small-mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin large-mobile() {
+  @media screen and (min-width: $large-mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media screen and (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @media screen and (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+@mixin widescreen() {
+  @media screen and (min-width: $widescreen-breakpoint) {
+    @content;
+  }
+}
+
+@mixin fullhd() {
+  @media screen and (min-width: $fullhd-breakpoint) {
+    @content;
+  }
+}
+
+@function vh($quantity) {
+  @return calc(var(--vh, 1vh) * #{$quantity});
+}
+
+@mixin topGrid() {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: var(--size-unit-10);
+
+  @include tablet {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@mixin column($start, $span) {
+  grid-column: $start / span $span;
+}
+
+@mixin fullColumn() {
+  @include column(1, 4);
+
+  @include tablet {
+    @include column(1, 8);
+  }
+}
+
+@mixin leftColumn() {
+  @include column(1, 4);
+
+  @include tablet {
+    @include column(1, 4);
+  }
+}
+
+@mixin leftColumnLarge() {
+  @include column(1, 4);
+
+  @include tablet {
+    @include column(1, 7);
+  }
+
+  @include desktop {
+    @include column(1, 6);
+  }
+}
+
+@mixin rightColumn() {
+  @include column(1, 4);
+
+  @include tablet {
+    @include column(5, 4);
+  }
+}
+
+@mixin altText() {
+  font-family: var(--font-family-alt);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
