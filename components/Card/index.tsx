@@ -13,6 +13,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   cardWidth?: number;
   suit: CardType;
   card: CardValue;
+  debounceSize?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -21,8 +22,13 @@ const Card: React.FC<CardProps> = ({
   cardWidth = 400,
   suit,
   card,
+  debounceSize,
+  onClick,
+  className,
 }) => {
-  const [ref, bounds] = useMeasure();
+  const [ref, bounds] = useMeasure({
+    debounce: debounceSize ? 100 : undefined,
+  });
   const [internalFlipped, setInternalFlipped] = useState(flipped);
   const timerRef = useRef<number>(-1);
 
@@ -45,8 +51,13 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       ref={ref}
-      className={styles.cardWrap}
+      className={classNames(
+        styles.cardWrap,
+        { [styles.interactive]: onClick },
+        className
+      )}
       role="button"
+      onClick={onClick}
       style={
         {
           "--card-wrap-scale": bounds.width / cardWidth,

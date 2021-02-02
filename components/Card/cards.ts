@@ -16,9 +16,13 @@ const convertToCardObject = (list: string) => {
 };
 
 export const CARDS_LIST: Array<{ suit: CardType; card: CardValue }> = [
-  ...convertToCardObject("COMMON"),
   ...convertToCardObject("CLUBS"),
   ...convertToCardObject("SPADES"),
   ...convertToCardObject("DIAMONDS"),
   ...convertToCardObject("HEARTS"),
+];
+
+export const FULL_CARDS_LIST: Array<{ suit: CardType; card: CardValue }> = [
+  ...convertToCardObject("COMMON"),
+  ...CARDS_LIST,
 ];

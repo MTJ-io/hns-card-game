@@ -33,3 +33,10 @@ export const formToObject = (form) => {
     {}
   );
 };
+
+export const random = (arr: any[]) => {
+  return arr[randomIndex(arr)];
+};
+export const randomIndex = (arr: any[]) => {
+  return Math.floor(Math.random() * arr.length);
+};

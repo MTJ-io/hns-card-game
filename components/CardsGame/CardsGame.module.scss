@@ -1,0 +1,59 @@
+.section {
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.cards {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  align-self: center;
+
+  gap: var(--size-unit-10);
+
+  min-height: 0;
+}
+
+.action {
+  display: flex;
+
+  justify-content: center;
+
+  .target {
+    position: relative;
+
+    flex-basis: 33%;
+
+    &Card {
+      &:active {
+        transform: translate3d(0, 3%, 0);
+      }
+    }
+  }
+}
+
+.draw {
+  position: absolute;
+
+  top: 50%;
+  left: calc(100% + var(--size-unit-4));
+
+  transform: translate3d(0, -50%, 0);
+
+  display: flex;
+  align-items: center;
+
+  font-size: 2vw;
+
+  color: var(--color-beige);
+
+  svg {
+    width: 1.4em;
+
+    margin-right: 0.2em;
+  }
+}
