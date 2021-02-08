@@ -15,7 +15,7 @@ import { useAppContext } from "../components/AppContext";
 export default function Home() {
   const { height, bodyHeight } = useWindowDimensions();
   const [promptHide, setPromptHide] = useState(false);
-  const { open, setOpen, setCard, card } = useAppContext();
+  const { open, setOpen, setCard, loaded } = useAppContext();
 
   useEffect(() => {
     const onScroll = tickUpdate(() => {
@@ -36,7 +36,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className={classNames(styles.main, { [styles.loaded]: loaded })}>
         <div className={styles.play}>
           <div className={styles.content}>
             <CardsGame />
@@ -48,7 +48,8 @@ export default function Home() {
               <Card
                 key={idx}
                 {...obj}
-                autoFlip={(idx + 1) * 50}
+                autoFlip={loaded && (idx + 1) * 50}
+                load={loaded}
                 onClick={() => {
                   setCard({
                     suit: obj.suit,

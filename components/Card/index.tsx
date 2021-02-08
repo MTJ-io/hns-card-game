@@ -17,6 +17,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, CardObject {
   autoFlip?: number;
   cardWidth?: number;
   debounceSize?: boolean;
+  load?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -28,6 +29,7 @@ const Card: React.FC<CardProps> = ({
   debounceSize,
   onClick,
   className,
+  load = true,
 }) => {
   const [ref, bounds] = useMeasure({
     debounce: debounceSize ? 100 : undefined,
@@ -65,7 +67,7 @@ const Card: React.FC<CardProps> = ({
         {
           "--card-wrap-scale": bounds.width / cardWidth,
           "--card-width": `${bounds.width || cardWidth}px`,
-          "--card-path": `url('/cards/${suit}/${card}.jpg')`,
+          "--card-path": load ? `url('/cards/${suit}/${card}.jpg')` : "",
         } as React.CSSProperties
       }
     >
