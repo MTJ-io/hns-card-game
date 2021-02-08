@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div id="app" className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Felix Cards</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
