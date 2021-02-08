@@ -7,12 +7,15 @@ import styles from "./Card.module.scss";
 export type CardType = "spades" | "hearts" | "diamonds" | "clubs" | "common";
 export type CardValue = number | "joker1" | "joker2";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export type CardObject = {
+  suit: CardType;
+  card: CardValue;
+};
+
+interface CardProps extends React.HTMLAttributes<HTMLDivElement>, CardObject {
   flipped?: boolean;
   autoFlip?: number;
   cardWidth?: number;
-  suit: CardType;
-  card: CardValue;
   debounceSize?: boolean;
 }
 

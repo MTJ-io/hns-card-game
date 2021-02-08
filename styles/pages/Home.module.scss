@@ -3,7 +3,11 @@
 
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .play {
@@ -12,13 +16,19 @@
   min-width: 0;
 
   .content {
-    position: sticky;
+    position: relative;
 
     top: 0;
 
-    padding: var(--size-unit-8);
+    height: vh(80);
+    min-height: 600px;
 
-    height: vh(100);
+    @include tablet {
+      position: sticky;
+
+      height: vh(100);
+      padding: var(--size-unit-8);
+    }
   }
 }
 
@@ -32,23 +42,27 @@
 
   background-color: var(--color-beige);
 
-  padding: var(--size-unit-8) 80px var(--size-unit-8) var(--size-unit-8);
+  padding: var(--size-unit-8);
 
   min-width: 0;
+
+  @include tablet {
+    padding: var(--size-unit-8) 80px var(--size-unit-8) var(--size-unit-8);
+  }
 }
 
 .prompt {
-  position: fixed;
+  position: absolute;
 
   right: 0;
-  bottom: 0;
+  bottom: 100%;
 
   display: flex;
   flex-direction: column;
 
   padding: 10px;
 
-  font-size: 1.5vw;
+  font-size: var(--size-unit-4);
 
   transition: {
     duration: 0.25s;
@@ -63,5 +77,12 @@
     width: 4ch;
 
     transform: rotate(-90deg);
+  }
+
+  @include tablet {
+    position: fixed;
+
+    bottom: 0;
+    font-size: 1.5vw;
   }
 }

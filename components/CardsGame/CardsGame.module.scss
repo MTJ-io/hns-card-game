@@ -3,19 +3,51 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 100px;
+
+  @include desktop {
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .cards {
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
 
   align-self: center;
 
-  gap: var(--size-unit-10);
+  gap: var(--size-unit-4);
 
   min-height: 0;
+
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+
+  @include desktop {
+    max-width: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--size-unit-10);
+  }
+}
+
+.cardsItem {
+  grid-column-end: span 6;
+
+  &:last-child {
+    grid-column-start: 4;
+  }
+
+  @include desktop {
+    grid-column-start: auto;
+    grid-column-end: span 1;
+
+    &:last-child {
+      grid-column-start: auto;
+      grid-column-end: span 1;
+    }
+  }
 }
 
 .action {
@@ -27,11 +59,16 @@
     position: relative;
 
     flex-basis: 33%;
+    margin-right: 140px;
 
     &Card {
       &:active {
         transform: translate3d(0, 3%, 0);
       }
+    }
+
+    @include tablet {
+      margin-right: 0;
     }
   }
 }
@@ -47,7 +84,7 @@
   display: flex;
   align-items: center;
 
-  font-size: 2vw;
+  font-size: var(--font-size-large);
 
   color: var(--color-beige);
 
@@ -55,5 +92,9 @@
     width: 1.4em;
 
     margin-right: 0.2em;
+  }
+
+  @include tablet {
+    font-size: 2vw;
   }
 }

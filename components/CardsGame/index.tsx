@@ -7,6 +7,7 @@ import { TransformCard } from "../TransformCard";
 import { ReactComponent as HandSvg } from "../../assets/hand.svg";
 
 import styles from "./CardsGame.module.scss";
+import { useAppContext } from "../AppContext";
 
 type CardObject = {
   id: string;
@@ -17,6 +18,7 @@ type CardObject = {
 const CardsGame = () => {
   const [cards, setCards] = useState<CardObject[]>([]);
   const [shownCards, setShownCards] = useState<number[]>([]);
+  const { setCard } = useAppContext();
 
   const getCards = useCallback(() => {
     const getList = () => {
@@ -68,6 +70,7 @@ const CardsGame = () => {
                   // debounceSize
                   {...individual}
                   flipped={shownCards.includes(idx)}
+                  onClick={() => setCard(individual)}
                 />
               </TransformCard>
             </div>

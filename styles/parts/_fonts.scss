@@ -1,6 +1,26 @@
-// @font-face {
-//   font-family: "Arnhem";
-//   font-weight: normal;
-//   src: url("~/fonts/Arnhem-Blond.woff2") format("woff2"),
-//     url("~/fonts/Arnhem-Blond.woff") format("woff");
-// }
+@font-face {
+  font-family: "VAG Rounded";
+  src: url("/fonts/VAGRoundedStd-Black.woff2") format("woff2"),
+    url("/fonts/VAGRoundedStd-Black.woff") format("woff");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VAG Rounded";
+  src: url("/fonts/VAGRoundedStd-Bold.woff2") format("woff2"),
+    url("/fonts/VAGRoundedStd-Bold.woff") format("woff");
+  font-weight: bold;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "VAG Rounded";
+  src: url("/fonts/VAGRoundedStd-Light.woff2") format("woff2"),
+    url("/fonts/VAGRoundedStd-Light.woff") format("woff");
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}

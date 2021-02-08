@@ -40,3 +40,18 @@ export const random = (arr: any[]) => {
 export const randomIndex = (arr: any[]) => {
   return Math.floor(Math.random() * arr.length);
 };
+
+const KEYS = {
+  ESCAPE: 27,
+};
+
+export const registerExits = (onEscape) => {
+  const cb = (e) => {
+    if ([KEYS.ESCAPE].includes(e.keyCode)) {
+      onEscape();
+    }
+  };
+
+  document.addEventListener("keyup", cb);
+  return () => document.removeEventListener("keyup", cb);
+};

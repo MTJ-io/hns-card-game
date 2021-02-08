@@ -68,12 +68,12 @@ const TransformCard: React.FC<TransformCardProps> = ({
   }, [targetSelector, onFinish, delay]);
 
   useEffect(() => {
-    if (show) {
+    if (show && !internalShow) {
       onTransform();
-    } else {
+    } else if (!show) {
       setInternalShow(false);
     }
-  }, [show]);
+  }, [show, internalShow]);
 
   return (
     <div
@@ -83,7 +83,6 @@ const TransformCard: React.FC<TransformCardProps> = ({
         { [styles.show]: internalShow },
         className
       )}
-      onClick={() => onTransform()}
     >
       {children}
     </div>

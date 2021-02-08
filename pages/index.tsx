@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Head from "next/head";
-import { Card } from "../components/Card";
+import { Card, CardObject } from "../components/Card";
 import { FULL_CARDS_LIST } from "../components/Card/cards";
 import { CardsGame } from "../components/CardsGame";
 import styles from "../styles/pages/Home.module.scss";
 import { ReactComponent as HandSvg } from "../assets/hand.svg";
 import { tickUpdate } from "../utils/utils";
 import { useWindowDimensions } from "../utils/hooks";
+import { Modal } from "../components/Modal";
+import { CardInfo } from "../components/CardInfo";
+import { useAppContext } from "../components/AppContext";
 
 export default function Home() {
   const { height, bodyHeight } = useWindowDimensions();
   const [promptHide, setPromptHide] = useState(false);
+  const { open, setOpen, setCard, card } = useAppContext();
 
   useEffect(() => {
     const onScroll = tickUpdate(() => {
@@ -26,7 +30,7 @@ export default function Home() {
   }, [height, bodyHeight]);
 
   return (
-    <div className={styles.container}>
+    <div id="app" className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -40,7 +44,25 @@ export default function Home() {
         </div>
         <div className={styles.cards}>
           {FULL_CARDS_LIST.map((obj, idx) => {
-            return <Card key={idx} {...obj} autoFlip={(idx + 1) * 50} />;
+            return (
+              <Card
+                key={idx}
+                {...obj}
+                autoFlip={(idx + 1) * 50}
+                onClick={() => {
+                  setCard({
+                    suit: obj.suit,
+                    card: obj.card,
+                  });
+
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                      setOpen(true);
+                    });
+                  });
+                }}
+              />
+            );
           })}
 
           <div
@@ -50,6 +72,10 @@ export default function Home() {
             <HandSvg />
           </div>
         </div>
+
+        <Modal onClose={() => setOpen(false)} open={open}>
+          <CardInfo />
+        </Modal>
       </main>
     </div>
   );
