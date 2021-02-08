@@ -7,9 +7,11 @@
 
   opacity: 0;
 
-  transition: {
-    duration: 0.25s;
-    property: opacity;
+  &.transition {
+    transition: {
+      duration: 0.25s;
+      property: opacity;
+    }
   }
 
   @include tablet {
@@ -22,7 +24,7 @@
 }
 
 .loading {
-  position: absolute;
+  position: fixed;
 
   top: var(--size-unit-6);
   left: var(--size-unit-6);

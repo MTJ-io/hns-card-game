@@ -7,7 +7,7 @@ import { CardsGame } from "../components/CardsGame";
 import styles from "../styles/pages/Home.module.scss";
 import { ReactComponent as HandSvg } from "../assets/hand.svg";
 import { tickUpdate } from "../utils/utils";
-import { useWindowDimensions } from "../utils/hooks";
+import { useTransitionMount, useWindowDimensions } from "../utils/hooks";
 import { Modal } from "../components/Modal";
 import { CardInfo } from "../components/CardInfo";
 import { useAppContext } from "../components/AppContext";
@@ -17,6 +17,8 @@ export default function Home() {
   const [promptHide, setPromptHide] = useState(false);
   const { open, setOpen, setCard, loaded } = useAppContext();
   const [show, setShow] = useState(false);
+
+  const transition = useTransitionMount();
 
   useEffect(() => {
     const onScroll = tickUpdate(() => {
@@ -45,7 +47,13 @@ export default function Home() {
 
       {!loaded && <div className={classNames(styles.loading)}>Loading...</div>}
 
-      <main className={classNames(styles.main, { [styles.loaded]: show })}>
+      <main
+        className={classNames(
+          styles.main,
+          { [styles.loaded]: show },
+          { [styles.transition]: transition }
+        )}
+      >
         <div className={styles.play}>
           <div className={styles.content}>
             <CardsGame />
