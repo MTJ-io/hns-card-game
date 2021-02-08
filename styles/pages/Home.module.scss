@@ -5,9 +5,31 @@
 
   grid-template-columns: 1fr;
 
+  opacity: 0;
+
+  transition: {
+    duration: 0.25s;
+    property: opacity;
+  }
+
   @include tablet {
     grid-template-columns: 1fr 1fr;
   }
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+.loading {
+  position: absolute;
+
+  top: var(--size-unit-6);
+  left: var(--size-unit-6);
+
+  font-size: var(--font-size-large);
+
+  z-index: 5;
 }
 
 .play {

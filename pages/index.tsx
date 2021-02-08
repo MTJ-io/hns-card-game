@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import classNames from "classnames";
 import Head from "next/head";
 import { Card, CardObject } from "../components/Card";
@@ -16,6 +16,7 @@ export default function Home() {
   const { height, bodyHeight } = useWindowDimensions();
   const [promptHide, setPromptHide] = useState(false);
   const { open, setOpen, setCard, loaded } = useAppContext();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const onScroll = tickUpdate(() => {
@@ -29,6 +30,12 @@ export default function Home() {
     };
   }, [height, bodyHeight]);
 
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 500);
+  }, []);
+
   return (
     <div id="app" className={styles.container}>
       <Head>
@@ -36,7 +43,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={classNames(styles.main, { [styles.loaded]: loaded })}>
+      {!loaded && <div className={classNames(styles.loading)}>Loading...</div>}
+
+      <main className={classNames(styles.main, { [styles.loaded]: show })}>
         <div className={styles.play}>
           <div className={styles.content}>
             <CardsGame />
