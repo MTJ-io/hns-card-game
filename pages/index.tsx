@@ -65,6 +65,7 @@ export default function Home() {
               <Card
                 key={idx}
                 {...obj}
+                alt={obj.card === "rules1"}
                 autoFlip={loaded && (idx + 1) * 50}
                 load={loaded}
                 onClick={() => {

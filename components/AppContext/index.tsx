@@ -49,9 +49,7 @@ const AppContainer: React.FC = ({ children }) => {
       .then(() => {
         setLoaded(true);
       })
-      .catch((e) => {
-        console.log("hey", e);
-      });
+      .catch((e) => {});
   }, []);
 
   return (

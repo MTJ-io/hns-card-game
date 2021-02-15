@@ -36,6 +36,18 @@ async function getRows() {
   });
 }
 
+const rulesContent = `## Rules that everyone can understand
+- It’s clear what different cards do, and what the cards mean
+- Pictures can really help, big numbers can be confusing
+- Have different sets of rules, so players can play in a way that’s fun for everyone
+
+## Games that everyone can win
+- Everyone can win bingo, it’s down to luck
+- Games can have more than one winner
+- You can play for a set time then stop – remember “Play is the Point”!
+- Recognise different players’ achievements, not just win or lose.
+`;
+
 (async function () {
   const rows = await getRows();
 
@@ -50,6 +62,15 @@ async function getRows() {
 
     return prev;
   }, {});
+
+  data["common"]["rules1"] = {
+    original_file: "rules.svg",
+    artist: "",
+    alt: "",
+    title: "Rules",
+    description: rulesContent,
+    audio_file: "",
+  };
 
   fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(data));
   console.log("data written");

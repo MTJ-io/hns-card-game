@@ -55,3 +55,27 @@ export const registerExits = (onEscape) => {
   document.addEventListener("keyup", cb);
   return () => document.removeEventListener("keyup", cb);
 };
+
+export const clickOutside = (
+  el: HTMLElement,
+  onClickOutside: () => void,
+  validator?: (el: HTMLElement, e: MouseEvent) => boolean
+) => {
+  const cb = (e) => {
+    if (validator) {
+      if (validator(el, e)) {
+        onClickOutside();
+      }
+    } else if (e.target !== el && !el.contains(e.target)) {
+      onClickOutside();
+    }
+  };
+
+  document.addEventListener("click", cb);
+  const unregisterExits = registerExits(onClickOutside);
+
+  return () => {
+    unregisterExits();
+    document.removeEventListener("click", cb);
+  };
+};

@@ -10,9 +10,11 @@ import data from "../../script/data.json";
 import { ReactComponent as ArrowSvg } from "../../assets/arrow-right.svg";
 import { FULL_CARDS_LIST } from "../Card/cards";
 import { useAppContext } from "../AppContext";
+import { HubAudioPlayer } from "../HubAudioPlayer";
 
 const CardInfo: React.FC = () => {
   const { card, setCard } = useAppContext();
+  const [audioFile, setAudioFile] = useState<false | string>(false);
 
   const cardData = useMemo(() => {
     return data[card.suit][card.card] || false;
@@ -51,8 +53,26 @@ const CardInfo: React.FC = () => {
   }, [currentIndex]);
 
   useEffect(() => {
+    setAudioFile(false);
     setCard(card);
+
+    const cont = new AbortController();
+    fetch(`/audio/${card.suit}/${card.card}.mp3`, {
+      signal: cont.signal,
+    })
+      .then((resp) => {
+        if (resp.status === 200) {
+          setAudioFile(`/audio/${card.suit}/${card.card}.mp3`);
+        }
+      })
+      .catch(() => {});
+
+    return () => cont.abort();
   }, [card]);
+
+  const isRules = useMemo(() => {
+    return card.suit === "common" && card.card === "rules1";
+  }, [card.suit, card.card]);
 
   return (
     <div className={styles.info}>
@@ -64,9 +84,56 @@ const CardInfo: React.FC = () => {
         <div className={styles.fakeCard}>
           <div className={styles.fakeCardInside}>
             <div className={styles.fakeCardContent}>
-              <span className={styles.title}>{cardData.title}</span>
-              <span className={styles.artist}>By {cardData.artist}</span>
-              <p className={styles.description}>{cardData.description}</p>
+              {isRules ? (
+                <div className={styles.rules}>
+                  <span className={styles.rulesTitle}>
+                    Rules that everyone can understand
+                  </span>
+                  <ul>
+                    <li>
+                      It’s clear what different cards do, and what the cards
+                      mean
+                    </li>
+                    <li>
+                      Pictures can really help, big numbers can be confusing
+                    </li>
+                    <li>
+                      Have different sets of rules, so players can play in a way
+                      that’s fun for everyone
+                    </li>
+                  </ul>
+
+                  <span className={styles.rulesTitle}>
+                    Games that everyone can win
+                  </span>
+                  <ul>
+                    <li>Everyone can win bingo, it’s down to luck</li>
+                    <li>Games can have more than one winner</li>
+                    <li>
+                      You can play for a set time then stop – remember “Play is
+                      the Point”!
+                    </li>
+                    <li>
+                      Recognise different players’ achievements, not just win or
+                      lose.
+                    </li>
+                  </ul>
+
+                  {audioFile && (
+                    <HubAudioPlayer src={audioFile} label="Listen" />
+                  )}
+                </div>
+              ) : (
+                <>
+                  <span className={styles.title}>{cardData.title}</span>
+                  <span className={styles.artist}>By {cardData.artist}</span>
+                  <p className={styles.description}>{cardData.description}</p>
+
+                  {audioFile && (
+                    <HubAudioPlayer src={audioFile} label="Listen" />
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

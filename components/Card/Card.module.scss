@@ -90,7 +90,11 @@ $card-width: 400;
   transform: rotateY(0deg);
 
   .inset {
-    background-image: url("/test/back.jpg");
+    background-image: url("/cards/common/back.jpg");
+
+    .alt & {
+      background-image: url("/cards/common/back-alt.jpg");
+    }
   }
 
   .flipped & {

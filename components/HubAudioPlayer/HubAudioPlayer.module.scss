@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
+
+  padding: var(--hub-audio-player-padding, 0);
+  margin: 0;
+
+  outline: 0;
+
+  line-height: 0;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  color: var(--hub-audio-player-color, var(--color-text));
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+
+  margin-right: 10px;
+
+  .playing & {
+    animation: {
+      name: PULSE;
+      duration: 0.5s;
+      direction: alternate;
+      iteration-count: infinite;
+    }
+  }
+}
+
+.label {
+  display: block;
+
+  color: var(--hub-audio-player-color, var(--color-text));
+  position: relative;
+  z-index: 2;
+  margin-left: var(--spacing-unit-4);
+  padding-top: 2px;
+  text-align: left;
+
+  line-height: 1;
+}
+
+@keyframes PULSE {
+  to {
+    transform: scale(1.1);
+  }
+}

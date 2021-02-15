@@ -51,6 +51,8 @@
     border-radius: 50px;
     border: 2px solid black;
 
+    overflow: auto;
+
     padding: var(--size-unit-6) var(--size-unit-6);
   }
 }
@@ -131,5 +133,12 @@
   &.next {
     right: var(--size-unit-4);
     --arrow-transform-hover: translate3d(10%, 0, 0);
+  }
+}
+
+.rules {
+  &Title {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-medium);
   }
 }

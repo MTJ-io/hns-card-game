@@ -5,7 +5,7 @@ import useMeasure from "react-use-measure";
 import styles from "./Card.module.scss";
 
 export type CardType = "spades" | "hearts" | "diamonds" | "clubs" | "common";
-export type CardValue = number | "joker1" | "joker2";
+export type CardValue = number | "joker1" | "joker2" | "rules1";
 
 export type CardObject = {
   suit: CardType;
@@ -18,6 +18,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement>, CardObject {
   cardWidth?: number;
   debounceSize?: boolean;
   load?: boolean;
+  alt?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -30,6 +31,7 @@ const Card: React.FC<CardProps> = ({
   onClick,
   className,
   load = true,
+  alt = false,
 }) => {
   const [ref, bounds] = useMeasure({
     debounce: debounceSize ? 100 : undefined,
@@ -58,7 +60,7 @@ const Card: React.FC<CardProps> = ({
       ref={ref}
       className={classNames(
         styles.cardWrap,
-        { [styles.interactive]: onClick },
+        { [styles.interactive]: onClick, [styles.alt]: alt },
         className
       )}
       role="button"
