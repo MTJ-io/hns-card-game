@@ -1,4 +1,9 @@
 .info {
+  position: relative;
+
+  height: 100%;
+}
+.columns {
   display: grid;
 
   grid-template-columns: 1fr;
@@ -7,8 +12,6 @@
   height: 100%;
 
   padding: var(--size-unit-14);
-
-  overflow: auto;
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);

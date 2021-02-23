@@ -11,6 +11,7 @@ import { ReactComponent as ArrowSvg } from "../../assets/arrow-right.svg";
 import { FOLDED_FULL_CARDS_LIST, FULL_CARDS_LIST } from "../Card/cards";
 import { useAppContext } from "../AppContext";
 import { HubAudioPlayer } from "../HubAudioPlayer";
+import { ComponentSwitch } from "../ComponentSwitch";
 
 const CardInfo: React.FC = () => {
   const { card, setCard, cardPool } = useAppContext();
@@ -95,103 +96,116 @@ const CardInfo: React.FC = () => {
 
   return (
     <div className={styles.info}>
-      <div className={styles.left}>
-        {isRules ? (
-          <div className={styles.fakeCard}>
-            <div className={styles.fakeCardInside}>
-              <div className={styles.fakeCardContent}>
-                <div className={styles.rules}>
-                  <span className={styles.rulesTitle}>Play is the point</span>
-                  <ul>
-                    <li>
-                      Play is personal, celebrate and explore instead of judging
-                      and criticising
-                    </li>
-                    <li>Have fun, help other players have fun</li>
-                    <li>Games where you tell stories help with this</li>
-                  </ul>
+      <ComponentSwitch name={`${card.card}-${card.suit}`}>
+        <div className={styles.columns}>
+          <div className={styles.left}>
+            {isRules ? (
+              <div className={styles.fakeCard}>
+                <div className={styles.fakeCardInside}>
+                  <div className={styles.fakeCardContent}>
+                    <div className={styles.rules}>
+                      <span className={styles.rulesTitle}>
+                        Play is the point
+                      </span>
+                      <ul>
+                        <li>
+                          Play is personal, celebrate and explore instead of
+                          judging and criticising
+                        </li>
+                        <li>Have fun, help other players have fun</li>
+                        <li>Games where you tell stories help with this</li>
+                      </ul>
 
-                  <span className={styles.rulesTitle}>
-                    Games that everyone can play
-                  </span>
-                  <ul>
-                    <li>
-                      Include people in your game, celebrate what they offer
-                    </li>
-                    <li>Game cards, boards and pieces are multi-sensory</li>
-                    <li>
-                      Players can help each other and ask for help. But they can
-                      also say no!
-                    </li>
-                    <li>
-                      Allow players to play alone, as a pair, or as a team
-                    </li>
-                  </ul>
+                      <span className={styles.rulesTitle}>
+                        Games that everyone can play
+                      </span>
+                      <ul>
+                        <li>
+                          Include people in your game, celebrate what they offer
+                        </li>
+                        <li>Game cards, boards and pieces are multi-sensory</li>
+                        <li>
+                          Players can help each other and ask for help. But they
+                          can also say no!
+                        </li>
+                        <li>
+                          Allow players to play alone, as a pair, or as a team
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              card && <Card className={styles.card} {...card} flipped />
+            )}
+          </div>
+
+          <div className={styles.right}>
+            <div className={styles.fakeCard}>
+              <div className={styles.fakeCardInside}>
+                <div className={styles.fakeCardContent}>
+                  {isRules ? (
+                    <div className={styles.rules}>
+                      <span className={styles.rulesTitle}>
+                        Rules that everyone can understand
+                      </span>
+                      <ul>
+                        <li>
+                          It’s clear what different cards do, and what the cards
+                          mean
+                        </li>
+                        <li>
+                          Pictures can really help, big numbers can be confusing
+                        </li>
+                        <li>
+                          Have different sets of rules, so players can play in a
+                          way that’s fun for everyone
+                        </li>
+                      </ul>
+
+                      <span className={styles.rulesTitle}>
+                        Games that everyone can win
+                      </span>
+                      <ul>
+                        <li>Everyone can win bingo, it’s down to luck</li>
+                        <li>Games can have more than one winner</li>
+                        <li>
+                          You can play for a set time then stop – remember “Play
+                          is the Point”!
+                        </li>
+                        <li>
+                          Recognise different players’ achievements, not just
+                          win or lose.
+                        </li>
+                      </ul>
+
+                      <HubAudioPlayer
+                        src={audioFile || undefined}
+                        label="Listen"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <span className={styles.title}>{cardData.title}</span>
+                      <span className={styles.artist}>
+                        By {cardData.artist}
+                      </span>
+                      <p className={styles.description}>
+                        {cardData.description}
+                      </p>
+
+                      {audioFile && (
+                        <HubAudioPlayer src={audioFile} label="Listen" />
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-        ) : (
-          card && <Card className={styles.card} {...card} flipped />
-        )}
-      </div>
-
-      <div className={styles.right}>
-        <div className={styles.fakeCard}>
-          <div className={styles.fakeCardInside}>
-            <div className={styles.fakeCardContent}>
-              {isRules ? (
-                <div className={styles.rules}>
-                  <span className={styles.rulesTitle}>
-                    Rules that everyone can understand
-                  </span>
-                  <ul>
-                    <li>
-                      It’s clear what different cards do, and what the cards
-                      mean
-                    </li>
-                    <li>
-                      Pictures can really help, big numbers can be confusing
-                    </li>
-                    <li>
-                      Have different sets of rules, so players can play in a way
-                      that’s fun for everyone
-                    </li>
-                  </ul>
-
-                  <span className={styles.rulesTitle}>
-                    Games that everyone can win
-                  </span>
-                  <ul>
-                    <li>Everyone can win bingo, it’s down to luck</li>
-                    <li>Games can have more than one winner</li>
-                    <li>
-                      You can play for a set time then stop – remember “Play is
-                      the Point”!
-                    </li>
-                    <li>
-                      Recognise different players’ achievements, not just win or
-                      lose.
-                    </li>
-                  </ul>
-
-                  <HubAudioPlayer src={audioFile || undefined} label="Listen" />
-                </div>
-              ) : (
-                <>
-                  <span className={styles.title}>{cardData.title}</span>
-                  <span className={styles.artist}>By {cardData.artist}</span>
-                  <p className={styles.description}>{cardData.description}</p>
-
-                  {audioFile && (
-                    <HubAudioPlayer src={audioFile} label="Listen" />
-                  )}
-                </>
-              )}
-            </div>
-          </div>
         </div>
-      </div>
+      </ComponentSwitch>
 
       <button
         onClick={onPrev}

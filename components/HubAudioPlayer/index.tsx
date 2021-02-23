@@ -40,7 +40,11 @@ const HubAudioPlayer: React.FC<HubAudioPlayerProps> = ({
   const initialPlay = useRef(false);
 
   const onPlaying = useCallback((e) => {
-    setTimeRemaining(secondsToTime(e.target.duration - e.target.currentTime));
+    if (e.target.duration >= 0 && e.target.currentTime >= 0) {
+      setTimeRemaining(secondsToTime(e.target.duration - e.target.currentTime));
+    } else {
+      setTimeRemaining("");
+    }
   }, []);
 
   useEffect(() => {
