@@ -21,6 +21,7 @@ const TransformCard: React.FC<TransformCardProps> = ({
   className,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [internalShow, setInternalShow] = useState(false);
 
   const onTransform = useCallback(() => {
@@ -57,6 +58,7 @@ const TransformCard: React.FC<TransformCardProps> = ({
 
       setTimeout(() => {
         requestAnimationFrame(() => {
+          audioRef.current.play();
           setInternalShow(true);
         });
       }, delay + 100);
@@ -84,6 +86,8 @@ const TransformCard: React.FC<TransformCardProps> = ({
         className
       )}
     >
+      <audio ref={audioRef} src="/audio/flip.mp3" />
+
       {children}
     </div>
   );

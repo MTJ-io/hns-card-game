@@ -15,6 +15,8 @@ interface AppContextProps {
   card: CardObject | null;
   setCard: (card: CardObject) => void;
   loaded: boolean;
+  cardPool: CardObject[] | false;
+  setCardPool: (pool: CardObject[] | false) => void;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -23,12 +25,15 @@ const AppContext = createContext<AppContextProps>({
   card: null,
   setCard: () => false,
   loaded: false,
+  cardPool: false,
+  setCardPool: () => false,
 });
 
 const AppContainer: React.FC = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [card, setInternalCard] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [cardPool, setCardPool] = useState<CardObject[] | false>(false);
 
   const setCard = useCallback((newCard: CardObject) => {
     setInternalCard(newCard);
@@ -39,6 +44,12 @@ const AppContainer: React.FC = ({ children }) => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (!open) {
+      setCardPool(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     Promise.all(
@@ -53,7 +64,9 @@ const AppContainer: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ open, setOpen, card, setCard, loaded }}>
+    <AppContext.Provider
+      value={{ open, setOpen, card, setCard, loaded, cardPool, setCardPool }}
+    >
       {children}
     </AppContext.Provider>
   );

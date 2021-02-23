@@ -1,8 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import classNames from "classnames";
 import Head from "next/head";
 import { Card, CardObject } from "../components/Card";
-import { FULL_CARDS_LIST } from "../components/Card/cards";
+import {
+  FOLDED_FULL_CARDS_LIST,
+  FULL_CARDS_LIST,
+} from "../components/Card/cards";
 import { CardsGame } from "../components/CardsGame";
 import styles from "../styles/pages/Home.module.scss";
 import { ReactComponent as HandSvg } from "../assets/hand.svg";
@@ -38,6 +41,10 @@ export default function Home() {
     }, 500);
   }, []);
 
+  const moveDown = useCallback(() => {
+    window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+  }, []);
+
   return (
     <div id="app" className={styles.container}>
       <Head>
@@ -60,7 +67,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.cards}>
-          {FULL_CARDS_LIST.map((obj, idx) => {
+          {FOLDED_FULL_CARDS_LIST.map((obj, idx) => {
             return (
               <Card
                 key={idx}
@@ -85,6 +92,7 @@ export default function Home() {
           })}
 
           <div
+            onClick={moveDown}
             className={classNames(styles.prompt, { [styles.hide]: promptHide })}
           >
             More

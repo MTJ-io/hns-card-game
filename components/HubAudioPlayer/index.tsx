@@ -18,7 +18,7 @@ const secondsToTime = (input) => {
 };
 
 interface HubAudioPlayerProps {
-  src: string;
+  src?: string;
   label?: string;
   className?: string;
   active?: boolean;

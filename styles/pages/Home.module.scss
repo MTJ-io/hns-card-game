@@ -61,7 +61,7 @@
 
   display: grid;
 
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--size-unit-4);
 
   background-color: var(--color-beige);
@@ -70,8 +70,17 @@
 
   min-width: 0;
 
+  @include large-mobile {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
   @include tablet {
+    grid-template-columns: repeat(2, 1fr);
     padding: var(--size-unit-8) 80px var(--size-unit-8) var(--size-unit-8);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -87,6 +96,8 @@
   padding: 10px;
 
   font-size: var(--size-unit-4);
+
+  cursor: pointer;
 
   transition: {
     duration: 0.25s;

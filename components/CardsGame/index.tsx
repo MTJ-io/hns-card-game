@@ -18,7 +18,7 @@ type CardObject = {
 const CardsGame = () => {
   const [cards, setCards] = useState<CardObject[]>([]);
   const [shownCards, setShownCards] = useState<number[]>([]);
-  const { setCard } = useAppContext();
+  const { setCard, setCardPool } = useAppContext();
 
   const getCards = useCallback(() => {
     const getList = () => {
@@ -53,6 +53,14 @@ const CardsGame = () => {
     setShownCards((state) => [...state, idx]);
   }, []);
 
+  const setDealtCards = useCallback(
+    (individual: CardObject) => {
+      setCardPool(cards);
+      setCard(individual);
+    },
+    [cards]
+  );
+
   return (
     <section className={styles.section}>
       <div className={styles.cards}>
@@ -70,7 +78,7 @@ const CardsGame = () => {
                   // debounceSize
                   {...individual}
                   flipped={shownCards.includes(idx)}
-                  onClick={() => setCard(individual)}
+                  onClick={() => setDealtCards(individual)}
                 />
               </TransformCard>
             </div>
@@ -79,18 +87,17 @@ const CardsGame = () => {
       </div>
 
       <div className={styles.action}>
-        <div id="target" className={styles.target}>
+        <div
+          id="target"
+          className={styles.target}
+          onClick={() => {
+            getCards();
+          }}
+        >
           <span className={styles.draw}>
-            <HandSvg /> Draw
+            <HandSvg /> Deal
           </span>
-          <Card
-            className={styles.targetCard}
-            card="joker1"
-            suit="common"
-            onClick={() => {
-              getCards();
-            }}
-          />
+          <Card className={styles.targetCard} card="joker1" suit="common" />
         </div>
       </div>
     </section>

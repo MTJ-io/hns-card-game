@@ -79,8 +79,9 @@
 .description {
   font-size: var(--font-size-normal);
 
-  @include tablet {
+  @include large-mobile {
     font-size: var(--font-size-medium);
+    line-height: 1.4;
   }
 }
 

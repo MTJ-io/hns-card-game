@@ -63,6 +63,16 @@ const rulesContent = `## Rules that everyone can understand
     return prev;
   }, {});
 
+  data["common"]["back"] = {
+    original_file: "rules.svg",
+    artist: "Aysen",
+    alt: "",
+    title: "Card back Image",
+    description:
+      "The master image from the back of the Inclusive Futures card deck. A colourful purple and blue picture with white spots and the letters 'Q' 'K' 'J' and 'A'.",
+    audio_file: "",
+  };
+
   data["common"]["rules1"] = {
     original_file: "rules.svg",
     artist: "",

@@ -8,13 +8,17 @@ import styles from "./CardInfo.module.scss";
 import data from "../../script/data.json";
 
 import { ReactComponent as ArrowSvg } from "../../assets/arrow-right.svg";
-import { FULL_CARDS_LIST } from "../Card/cards";
+import { FOLDED_FULL_CARDS_LIST, FULL_CARDS_LIST } from "../Card/cards";
 import { useAppContext } from "../AppContext";
 import { HubAudioPlayer } from "../HubAudioPlayer";
 
 const CardInfo: React.FC = () => {
-  const { card, setCard } = useAppContext();
+  const { card, setCard, cardPool } = useAppContext();
   const [audioFile, setAudioFile] = useState<false | string>(false);
+
+  const pool = useMemo(() => {
+    return cardPool || FOLDED_FULL_CARDS_LIST;
+  }, [cardPool]);
 
   const cardData = useMemo(() => {
     return data[card.suit][card.card] || false;
@@ -25,32 +29,32 @@ const CardInfo: React.FC = () => {
       return 0;
     }
 
-    const idx = FULL_CARDS_LIST.findIndex(
+    const idx = pool.findIndex(
       (c) => card.suit === c.suit && card.card === c.card
     );
 
     return idx >= 0 ? idx : 0;
-  }, [card]);
+  }, [card, pool]);
 
   const onPrev = useCallback(() => {
     let nextIndex = currentIndex - 1;
 
     if (nextIndex < 0) {
-      nextIndex = FULL_CARDS_LIST.length - 1;
+      nextIndex = pool.length - 1;
     }
 
-    setCard(FULL_CARDS_LIST[nextIndex]);
-  }, [currentIndex]);
+    setCard(pool[nextIndex]);
+  }, [currentIndex, pool]);
 
   const onNext = useCallback(() => {
     let nextIndex = currentIndex + 1;
 
-    if (nextIndex >= FULL_CARDS_LIST.length) {
+    if (nextIndex >= pool.length) {
       nextIndex = 0;
     }
 
-    setCard(FULL_CARDS_LIST[nextIndex]);
-  }, [currentIndex]);
+    setCard(pool[nextIndex]);
+  }, [currentIndex, pool]);
 
   useEffect(() => {
     setAudioFile(false);
@@ -70,6 +74,21 @@ const CardInfo: React.FC = () => {
     return () => cont.abort();
   }, [card]);
 
+  useEffect(() => {
+    const cb = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        onPrev();
+      }
+      if (e.key === "ArrowRight") {
+        onNext();
+      }
+    };
+
+    document.addEventListener("keyup", cb);
+
+    return () => document.removeEventListener("keyup", cb);
+  }, [onPrev, onNext]);
+
   const isRules = useMemo(() => {
     return card.suit === "common" && card.card === "rules1";
   }, [card.suit, card.card]);
@@ -77,7 +96,44 @@ const CardInfo: React.FC = () => {
   return (
     <div className={styles.info}>
       <div className={styles.left}>
-        {card && <Card className={styles.card} {...card} flipped />}
+        {isRules ? (
+          <div className={styles.fakeCard}>
+            <div className={styles.fakeCardInside}>
+              <div className={styles.fakeCardContent}>
+                <div className={styles.rules}>
+                  <span className={styles.rulesTitle}>Play is the point</span>
+                  <ul>
+                    <li>
+                      Play is personal, celebrate and explore instead of judging
+                      and criticising
+                    </li>
+                    <li>Have fun, help other players have fun</li>
+                    <li>Games where you tell stories help with this</li>
+                  </ul>
+
+                  <span className={styles.rulesTitle}>
+                    Games that everyone can play
+                  </span>
+                  <ul>
+                    <li>
+                      Include people in your game, celebrate what they offer
+                    </li>
+                    <li>Game cards, boards and pieces are multi-sensory</li>
+                    <li>
+                      Players can help each other and ask for help. But they can
+                      also say no!
+                    </li>
+                    <li>
+                      Allow players to play alone, as a pair, or as a team
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          card && <Card className={styles.card} {...card} flipped />
+        )}
       </div>
 
       <div className={styles.right}>
@@ -119,9 +175,7 @@ const CardInfo: React.FC = () => {
                     </li>
                   </ul>
 
-                  {audioFile && (
-                    <HubAudioPlayer src={audioFile} label="Listen" />
-                  )}
+                  <HubAudioPlayer src={audioFile || undefined} label="Listen" />
                 </div>
               ) : (
                 <>
