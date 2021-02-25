@@ -67,6 +67,7 @@ const CardInfo: React.FC = () => {
     })
       .then((resp) => {
         if (resp.status === 200) {
+          console.log(`/audio/${card.suit}/${card.card}.mp3`);
           setAudioFile(`/audio/${card.suit}/${card.card}.mp3`);
         }
       })

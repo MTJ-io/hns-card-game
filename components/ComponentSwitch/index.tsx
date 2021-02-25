@@ -19,8 +19,6 @@ const ComponentSwitch: React.FC<ComponentSwitchProps> = ({
 
   useEffect(() => {
     if (name !== lastKey.current) {
-      console.log(name, lastKey.current);
-
       lastKey.current = name;
 
       setDisplay(false);
@@ -35,8 +33,10 @@ const ComponentSwitch: React.FC<ComponentSwitchProps> = ({
           });
         });
       }, 350);
+    } else if (display) {
+      setCurrentChild(children);
     }
-  }, [name, children]);
+  }, [name, display, children]);
 
   return React.cloneElement(currentChild, {
     className: classNames(
