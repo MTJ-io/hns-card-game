@@ -90,14 +90,14 @@ export default function Home() {
               />
             );
           })}
+        </div>
 
-          <div
-            onClick={moveDown}
-            className={classNames(styles.prompt, { [styles.hide]: promptHide })}
-          >
-            More
-            <HandSvg />
-          </div>
+        <div
+          onClick={moveDown}
+          className={classNames(styles.prompt, { [styles.hide]: promptHide })}
+        >
+          More
+          <HandSvg />
         </div>
 
         <Modal onClose={() => setOpen(false)} open={open}>

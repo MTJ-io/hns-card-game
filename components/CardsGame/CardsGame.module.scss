@@ -3,7 +3,9 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 100px;
+  grid-template-rows: 113vw auto;
+  gap: var(--size-unit-4);
+  padding: var(--size-unit-4);
 
   @include desktop {
     grid-template-rows: 1fr 1fr;

@@ -52,6 +52,11 @@
   margin-left: var(--spacing-unit-4);
   padding-top: 2px;
   text-align: left;
+  font-size: var(--font-size-normal);
+
+  @include large-mobile {
+    font-size: var(--font-size-medium);
+  }
 
   line-height: 1;
 }

@@ -44,7 +44,6 @@
 
     top: 0;
 
-    height: vh(80);
     min-height: 600px;
 
     @include tablet {
@@ -88,7 +87,7 @@
   position: absolute;
 
   right: 0;
-  bottom: 100%;
+  top: calc(90vh - var(--size-unit-8));
 
   display: flex;
   flex-direction: column;
@@ -117,6 +116,7 @@
   @include tablet {
     position: fixed;
 
+    top: auto;
     bottom: 0;
     font-size: 1.5vw;
   }
