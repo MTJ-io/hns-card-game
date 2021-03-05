@@ -7,6 +7,14 @@
   gap: var(--size-unit-4);
   padding: var(--size-unit-4);
 
+  @include large-mobile {
+    grid-template-rows: 80vw auto;
+  }
+
+  @include tablet {
+    grid-template-rows: 1fr auto;
+  }
+
   @include desktop {
     grid-template-rows: 1fr 1fr;
   }

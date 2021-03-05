@@ -87,7 +87,9 @@
   position: absolute;
 
   right: 0;
-  top: calc(90vh - var(--size-unit-8));
+  top: vh(100);
+
+  transform: translate3d(0, -100%, 0);
 
   display: flex;
   flex-direction: column;

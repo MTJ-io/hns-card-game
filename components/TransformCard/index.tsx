@@ -58,7 +58,9 @@ const TransformCard: React.FC<TransformCardProps> = ({
 
       setTimeout(() => {
         requestAnimationFrame(() => {
-          audioRef.current.play();
+          try {
+            audioRef.current.play();
+          } catch {}
           setInternalShow(true);
         });
       }, delay + 100);
